@@ -22,6 +22,7 @@ wrong_words_lst = []
 window3_open = False
 window2_open = False
 
+
 #Initialize window
 window = Tk()
 window.title("Typing Practice")
@@ -40,6 +41,7 @@ def initialize_sentence():
     except:
         print("The sentences.txt file cannot be found")
 
+
 #Function to check input against sentence: Changes from red and green
 def checking(*args):
     if user_input.get() == SENTENCE[0:len(user_input.get())]:
@@ -54,10 +56,11 @@ def checking(*args):
         wrong_words_lst.append(user_input.get()[-1])
 
 
-#Function to store info from the practice. To add on more info next time
+#Function to store info from the practice
 def storing_info(event):
     counting_total_words_and_reseting_entry()
     initialize_sentence()
+
 
 #Function to call on "enter" and at the end, obtains info for wpm, accuracy, perfect sentences and mistakes
 def counting_total_words_and_reseting_entry():
@@ -81,14 +84,13 @@ def show_stats():
     user_input.config(state="disabled")
     start_test_button.config(state="normal")
     calculate_display_score()
-    global WRONGINPUTCOUNT, CORRECTINPUTCOUNT, TOTALWORDSCOUNT, wpm, wrong_words_lst
+    global WRONGINPUTCOUNT, CORRECTINPUTCOUNT, TOTALWORDSCOUNT, wpm, wrong_words_lst, PERFECT_SENTENCES
     WRONGINPUTCOUNT = 0
     CORRECTINPUTCOUNT = 0
     TOTALWORDSCOUNT = 0
     PERFECT_SENTENCES = 0
     wpm = 0
     wrong_words_lst = []
-
 
 
 #Function to calculate score & display it in messagebox then calls another function
@@ -135,6 +137,7 @@ def calculate_display_score():
     store_score(data_dictionary)
     refresh_leaderboard()
 
+
 #Function to store the score in json
 def store_score(data_dictionary):
     try:
@@ -142,11 +145,12 @@ def store_score(data_dictionary):
             data = json.load(file)
     except (FileNotFoundError, json.JSONDecodeError):
         data = {}  # Start with an empty dictionary if file is missing or corrupted
-
     data.update(data_dictionary) # Update JSON data
     with open("data.json", "w") as file:
         json.dump(data, file, indent=4)
 
+
+#Function that rewrites the leaderboard after each test, and simultaneously checks if wpm is in top5, then displays message if so
 def refresh_leaderboard():
     json_list = []
     with open("data.json", "r") as file:
@@ -173,6 +177,7 @@ def refresh_leaderboard():
                                         f"\nYour WPM of {wpm:.1f} is now {placing[counter]} on the leaderboard ")
 
 
+#Function to create a leaderboard widget
 def display_leaderboard():
     global window2, window2_open, window3, window3_open
     if window3_open == True:
@@ -199,11 +204,8 @@ def display_leaderboard():
                 counter += 1
                 score_sentence = Label(window3,text=f"{(counter)}:  {score[2:len(score)-3]}", bg="#615751", fg="#baafa5", font=("Times New Roman", 14, "normal"), relief="raised", pady=5,padx=7)
                 score_sentence.grid(row=counter, column=0)
-
-
     except:
         print("The scoreboard.txt file cannot be found")
-
 
 
 #Functions to call count_down with the proper amount of time
@@ -236,7 +238,7 @@ def count_down(count):
    else:
        show_stats()
 
-#Function to open up selection of time
+#Function to open up a widget for the selection of time
 def message_window():
     global window2, window2_open, window3, window3_open
     if window3_open == True:
