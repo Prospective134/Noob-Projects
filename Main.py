@@ -187,7 +187,7 @@ def display_leaderboard():
     window3.minsize(width=400, height=400)
     window3.config(pady=100, padx=100, bg="#baafa5")
     trophy = Canvas(window3, width=350, height=400, highlightthickness=0, bg= "#baafa5")
-    trophy_img = PhotoImage(file="../trophy.png")
+    trophy_img = PhotoImage(file="./trophy.png")
     trophy.img = trophy_img
     trophy.create_image(175,200, image=trophy.img)
     trophy.grid(row=0, column=0)
@@ -209,8 +209,8 @@ def display_leaderboard():
 #Functions to call count_down with the proper amount of time
 def start_timer_thirty():
     global TIME
-    TIME = 15
-    count_down(15)
+    TIME = 30
+    count_down(30)
 def start_timer_one():
     global TIME
     TIME = 60
@@ -274,7 +274,7 @@ user_input.bind("<Return>", storing_info)
 
 #Intitialise canvas timer
 timer = Canvas(width=200, height=224, highlightthickness=0, bg="#baafa5")
-timer_img = PhotoImage(file="../stopwatch-png.png")
+timer_img = PhotoImage(file="./stopwatch-png.png")
 timer.create_image(100,112, image=timer_img)
 timer_text = timer.create_text(100,125, text="0:00", fill="#926851", font=("Times New Roman", 27, "bold"))
 timer.grid(row=0,column=1,columnspan=2, rowspan=2)
